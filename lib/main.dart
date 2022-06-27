@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import './view/shopping_page.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -17,14 +19,5 @@ class MyApp extends StatelessWidget {
       ),
       home: const ShoppingPage(),
     );
-  }
-}
-
-class ShoppingPage extends StatelessWidget {
-  const ShoppingPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
