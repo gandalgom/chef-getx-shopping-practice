@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_x_practice/controller/shopping_controller.dart';
+
+import '../controller/shopping_controller.dart';
+import '../controller/cart_controller.dart';
 
 class ShoppingPage extends StatelessWidget {
   ShoppingPage({Key? key}) : super(key: key);
 
   final shoppingController = Get.put(ShoppingController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,9 @@ class ShoppingPage extends StatelessWidget {
                               ],
                             ),
                             ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () => cartController.addToItem(
+                                controller.products[index]
+                              ),
                               child: const Text('add to card'),
                             ),
                           ],
@@ -61,11 +66,29 @@ class ShoppingPage extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 30.0),
-          const Text(
-            'Total amount',
-            style: TextStyle(fontSize: 25.0, color: Colors.white),
+          GetX<CartController>(
+            builder: (controller) {
+              return Text(
+                'Total amount: \$${controller.totalPrice}',
+                style: const TextStyle(fontSize: 25.0, color: Colors.white),
+              );
+            }
           ),
+          const SizedBox(height: 100.0),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        backgroundColor: Colors.black87,
+        icon: const Icon(Icons.add_shopping_cart_rounded),
+        label: GetX<CartController>(
+          builder: (controller) {
+            return Text(
+              '${controller.count}',
+              style: const TextStyle(fontSize: 20.0),
+            );
+          }
+        ),
       ),
     );
   }
