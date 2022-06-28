@@ -22,42 +22,12 @@ class ShoppingPage extends StatelessWidget {
                 return ListView.builder(
                   itemCount: controller.products.length,
                   itemBuilder: (context, index) {
-                    return Card(
-                      margin: const EdgeInsets.all(12.0),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      controller.products[index].name,
-                                      style: const TextStyle(fontSize: 24.0)
-                                    ),
-                                    Text(
-                                      controller.products[index].description
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  '\$${controller.products[index].price}',
-                                  style: const TextStyle(fontSize: 24.0)
-                                ),
-                              ],
-                            ),
-                            ElevatedButton(
-                              onPressed: () => cartController.addToItem(
-                                controller.products[index]
-                              ),
-                              child: const Text('add to card'),
-                            ),
-                          ],
-                        ),
+                    return CardItem(
+                      name: controller.products[index].name,
+                      description: controller.products[index].description,
+                      price: controller.products[index].price,
+                      onButtonPressed: () => cartController.addToItem(
+                        controller.products[index]
                       ),
                     );
                   },
@@ -88,6 +58,54 @@ class ShoppingPage extends StatelessWidget {
               style: const TextStyle(fontSize: 20.0),
             );
           }
+        ),
+      ),
+    );
+  }
+}
+
+class CardItem extends StatelessWidget {
+  const CardItem({
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.onButtonPressed,
+    Key? key,
+  }) : super(key: key);
+
+  final String name;
+  final String description;
+  final double price;
+
+  final void Function()? onButtonPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.all(12.0),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(name, style: const TextStyle(fontSize: 24.0)),
+                    Text(description),
+                  ],
+                ),
+                Text('\$$price', style: const TextStyle(fontSize: 24.0)),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: onButtonPressed,
+              child: const Text('add to card'),
+            ),
+          ],
         ),
       ),
     );
