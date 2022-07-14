@@ -13,6 +13,7 @@ class ShoppingController extends GetxController {
 
   void fetchData() async {
     await Future.delayed(const Duration(seconds: 2));
+
     var productData = [
       Product(
         id: 1,
@@ -44,7 +45,6 @@ class ShoppingController extends GetxController {
         name: 'Speaker',
       ),
     ];
-
     products.assignAll(productData);
   }
 }
